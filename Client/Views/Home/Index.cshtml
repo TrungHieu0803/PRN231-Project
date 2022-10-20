@@ -1,0 +1,73 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Client.Models
+@model dynamic
+<div id="content">
+    <div id="content-left">
+        <h3>CATEGORY</h3>
+        <ul>
+            @foreach (CategoryDto cate in Model.categories)
+            {
+                <a class="nav-link text-dark" asp-area="" asp-controller="ProductCate" asp-action="Index" asp-route-id="@cate.categoryId">
+                <li>@cate.categoryName</li>
+                </a>
+            }
+        </ul>
+
+    </div>
+    <div id="content-right">
+        <div class="path">Hot</b></div>
+        <div class="content-main">
+            <div class="product">
+                <a href="detail.html"><img src="img/1.jpg" width="100%" /></a>
+                <div class="name"><a href="detail.html">Product 1</a></div>
+                <div class="price">$1000</div>
+                <div><a href="">Buy now</a></div>
+            </div>
+            <div class="product">
+                <a href=""><img src="img/1.jpg" width="100%" /></a>
+                <div class="name"><a href="">Product 1</a></div>
+                <div class="price">$1000</div>
+                <div><a href="">Buy now</a></div>
+            </div>
+            <div class="product">
+                <a href=""><img src="img/1.jpg" width="100%" /></a>
+                <div class="name"><a href="">Product 1</a></div>
+                <div class="price">$1000</div>
+                <div><a href="">Buy now</a></div>
+            </div>
+            <div class="product">
+                <a href=""><img src="img/1.jpg" width="100%" /></a>
+                <div class="name"><a href="">Product 1</a></div>
+                <div class="price">$1000</div>
+                <div><a href="">Buy now</a></div>
+            </div>
+        </div>
+        <div class="path">Best Sale</b></div>
+        <div class="content-main">
+            @foreach (ProductListDto product in Model.bestSaleProduct)
+            {
+                <div class="product">
+                    <a href="detail.html"><img src="img/1.jpg" width="100%" /></a>
+                    <div class="name"><a href="detail.html">@product.productName</a></div>
+                    <div class="price">$@product.unitPrice</div>
+                    <div><a href="">Buy now</a></div>
+                </div>
+            }
+        </div>
+        <div class="path">New Product</b></div>
+        <div class="content-main">
+            @foreach (ProductListDto product in Model.newProduct)
+            {
+                <div class="product">
+                    <a href="detail.html"><img src="img/1.jpg" width="100%" /></a>
+                    <div class="name"><a href="detail.html">@product.productName</a></div>
+                    <div class="price">$@product.unitPrice</div>
+                    <div><a href="">Buy now</a></div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
