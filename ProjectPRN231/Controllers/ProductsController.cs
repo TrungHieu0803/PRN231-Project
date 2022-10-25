@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using ProjectPRN231.Models;
 using ProjectPRN231.Dtos;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+
 namespace ProjectPRN231.Controllers
 {
     [Route("api/product")]
@@ -20,7 +22,7 @@ namespace ProjectPRN231.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "2")]
+        [Authorize(Roles = "1")]
         public ActionResult<IEnumerable<Product>> Get([FromQuery] int? categoryId, [FromQuery] string? searchString)
         {
             if (searchString != null)
@@ -51,13 +53,6 @@ namespace ProjectPRN231.Controllers
         [Route("best-sale")]
         public async Task<ActionResult<IEnumerable<Product>>> GetBestSale()
         {
-
-            //var products = await _context.Products
-            //    .FromSqlRaw("select [Order Details].ProductID, Products.ProductName, Products.CategoryID, Products.Discontinued, COUNT(*) as Number " +
-            //    "from Products " +
-            //    "inner join [Order Details] on Products.ProductID = [Order Details].ProductID " +
-            //    "group by [Order Details].ProductID, Products.ProductName, Products.CategoryID, Products.Discontinued " +
-            //    "order by Number desc").ToListAsync();
             try
             {
                 var product = await (from p in _context.Products
@@ -69,7 +64,7 @@ namespace ProjectPRN231.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500);
+                return StatusCode(500, ex.Message);
             }
 
         }
@@ -86,7 +81,7 @@ namespace ProjectPRN231.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500);
+                return StatusCode(500, ex.Message);
             }
 
         }
@@ -103,14 +98,13 @@ namespace ProjectPRN231.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500);
+                return StatusCode(500, ex.Message);
             }
-
         }
 
         [HttpPost]
-        [Authorize(Roles = "2")]
-        public ActionResult Post([FromBody] ProductDto productDto)
+        [Authorize(Roles = "1")]
+        public ActionResult Post([FromForm] ProductDto productDto)
         {
 
             var product = mapper.Map<Product>(productDto);
