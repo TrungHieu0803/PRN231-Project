@@ -1,0 +1,121 @@
+﻿@{
+    ViewData["Title"] = "Cart";
+}
+@using Client.Models
+@model dynamic
+@{
+    var u = TempData["numberOfOrder"];
+    var user = TempData["User"] as AccountDto;
+    decimal? total = 0;
+}
+<div id="content">
+    <div id="cart">
+        <div id="cart-title">
+            <h3>SHOPPING CART</h3>
+        </div>
+        <div id="cart-content">
+            @if (u == null)
+            {
+                <div class="cart-item">None</div>
+            }
+            else
+            {
+                foreach (OrderDetail orderDetail in Model.orderDetails)
+                {
+
+                    var totalPrice = orderDetail.unitPrice * orderDetail.quantity;
+                    total += totalPrice;
+                    <div class="cart-item">
+                        <div class="cart-item-infor">
+                            <div class="cart-item-img">
+                                <img src="img/1.jpg" />
+                            </div>
+                            <div class="cart-item-name">
+                                <a href="detail.html?id=1">@orderDetail.productName</a>
+                            </div>
+                            <div class="cart-item-price">
+                                @totalPrice $
+                            </div>
+                            <div class="cart-item-button">
+                                <a asp-controller="Cart" asp-action="Remove" asp-route-id="@orderDetail.productId">Remove</a>
+                            </div>
+                        </div>
+                        <div class="cart-item-function">
+                            <a asp-controller="Cart" asp-action="Decrease" asp-route-id="@orderDetail.productId">-</a>
+                            <a asp-controller="Cart" asp-action="Increase" asp-route-id="@orderDetail.productId">+</a>
+                            <input type="text" value="@orderDetail.quantity" disabled />
+                        </div>
+                    </div>
+                }
+            }
+
+        </div>
+        <div id="cart-summary">
+            <div id="cart-summary-content">Total amount: <span style="color:red">@total $</span></div>
+        </div>
+        <form asp-action="CreateOrder" asp-controller="Cart" method="post">
+            <input type="hidden" name="customerId" value="" /><br />
+            @if (user == null)
+            {
+                <input type="hidden" name="customerId" value="" />
+
+                <br />
+                <div id="customer-info">
+                    <div id="customer-info-content">
+                        <h3>CUSTOMER INFORMATION:</h3>
+                        <div id="customer-info-detail">
+                            <div id="customer-info-left">
+                                <input type="text" placeholder="Company name *" /><br />
+                                <input type="text" placeholder="Contact name *" /><br />
+                            </div>
+                            <div id="customer-info-right">
+                                <input type="text" placeholder="Contact title *" /><br />
+                                <input type="text" name="shipAdress" placeholder="Address *" /><br />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                var customer = Model.customer as CustomerDto;
+                <input type="hidden" name="customerId" value="@customer.customerId" />
+
+                <br />
+                <div id="customer-info">
+                    <div id="customer-info-content">
+                        <h3>CUSTOMER INFORMATION:</h3>
+                        <div id="customer-info-detail">
+                            <div id="customer-info-left">
+                                <input type="text" placeholder="Company name *" name="" value="@customer.companyName" /><br />
+                                <input type="text" placeholder="Contact name *" name="" value="@customer.contactName" /><br />
+                            </div>
+                            <div id="customer-info-right">
+                                <input type="text" placeholder="Contact title *" value="@customer.contactTitle" /><br />
+                                <input type="text" name="shipAdress" placeholder="Address *" value="@customer.address" /><br />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div id="customer-info">
+                <div id="customer-info-content">
+                    <h3>PAYMENT METHODS:</h3>
+                    <div id="customer-info-payment">
+                        <div>
+                            <input type="radio" name="rbPaymentMethod" checked />
+                            Payment C.O.D - Payment on delivery
+                        </div>
+                        <div>
+                            <input type="radio" name="rbPaymentMethod" disabled />
+                            Payment via online payment gateway
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="cart-order">
+                <input type="submit" value="ORDER" />
+            </div>
+        </form>
+    </div>
+</div>

@@ -47,25 +47,25 @@
         </div>
         <div class="path">Best Sale</b></div>
         <div class="content-main">
-            @foreach (ProductListDto product in Model.bestSaleProduct)
+            @foreach (ProductDto product in Model.bestSaleProduct)
             {
                 <div class="product">
-                    <a href="detail.html"><img src="img/1.jpg" width="100%" /></a>
+                    <a asp-area="" asp-controller="Product" asp-action="Index" asp-route-id="@product.productId"><img src="img/1.jpg" width="100%" /></a>
                     <div class="name"><a href="detail.html">@product.productName</a></div>
                     <div class="price">$@product.unitPrice</div>
-                    <div><a href="">Buy now</a></div>
+                    <div><a asp-area="" asp-controller="Product" asp-action="Index" asp-route-id="@product.productId">Buy now</a></div>
                 </div>
             }
         </div>
         <div class="path">New Product</b></div>
         <div class="content-main">
-            @foreach (ProductListDto product in Model.newProduct)
+            @foreach (ProductDto product in Model.newProduct)
             {
                 <div class="product">
-                    <a href="detail.html"><img src="img/1.jpg" width="100%" /></a>
+                    <a asp-area="" asp-controller="Product" asp-action="Index" asp-route-id="@product.productId"><img src="img/1.jpg" width="100%" /></a>
                     <div class="name"><a href="detail.html">@product.productName</a></div>
                     <div class="price">$@product.unitPrice</div>
-                    <div><a href="">Buy now</a></div>
+                    <div><a asp-area="" asp-controller="Product" asp-action="Index" asp-route-id="@product.productId">Buy now</a></div>
                 </div>
             }
         </div>

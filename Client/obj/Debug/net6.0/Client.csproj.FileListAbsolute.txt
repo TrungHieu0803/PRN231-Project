@@ -24,3 +24,5 @@ C:\Users\xuhao\OneDrive\Desktop\code\ProjectPRN231\Client\obj\Debug\net6.0\refin
 C:\Users\xuhao\OneDrive\Desktop\code\ProjectPRN231\Client\obj\Debug\net6.0\Client.pdb
 C:\Users\xuhao\OneDrive\Desktop\code\ProjectPRN231\Client\obj\Debug\net6.0\Client.genruntimeconfig.cache
 C:\Users\xuhao\OneDrive\Desktop\code\ProjectPRN231\Client\obj\Debug\net6.0\ref\Client.dll
+C:\Users\xuhao\OneDrive\Desktop\code\ProjectPRN231\Client\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\xuhao\OneDrive\Desktop\code\ProjectPRN231\Client\obj\Debug\net6.0\Client.csproj.CopyComplete

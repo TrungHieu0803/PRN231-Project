@@ -9,17 +9,43 @@
     <link rel="stylesheet" href="~/Client.styles.css" asp-append-version="true" />
 </head>
 <body>
+    @{
+        var u = TempData["numberOfOrder"];
+        var user = TempData["User"] as AccountDto;
+    }
     <div id="header">
         <div id="logo">
             <a href="index.html"><img src="img/logo.png" /></a>
         </div>
         <div id="banner">
             <ul>
-                <li><a href="cart.html">Cart: 0</a></li>
-                <li><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SignIn">SignIn</a></li>
-                <li><a href="signup.html">SignUp</a></li>
-                <li><a href="profile.html">Profile</a></li>
-                <li><a href="#">SignOut</a></li>
+                <li>
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index">
+                        Cart:
+                        @{
+                            if (u == null)
+                            {
+                                <p>0</p>
+                            }
+                            else
+                            {
+                                <p>@u</p>
+                            }
+                        }
+                    </a>
+                </li>
+                @if (user != null)
+                {
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="#">SignOut</a></li>
+                }
+                else
+                {
+                    <li><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SignIn">SignIn</a></li>
+                    <li><a href="signup.html">SignUp</a></li>
+                }
+
+
             </ul>
         </div>
     </div>

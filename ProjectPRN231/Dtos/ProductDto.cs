@@ -9,6 +9,7 @@
         public short? UnitsInStock { get; set; }
         public short? UnitsOnOrder { get; set; }
         public short? ReorderLevel { get; set; }
+        public string? CategoryName { get; set; } = null;
         public bool Discontinued { get; set; }
     }
 }

@@ -8,6 +8,8 @@ namespace ProjectPRN231.Dtos
         public Mapping()
         {
             CreateMap <ProductDto, Product>();
+            CreateMap <AccountDto, Account>();
+            CreateMap <Account, AccountDto>();
         }
     }
 }

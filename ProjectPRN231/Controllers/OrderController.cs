@@ -49,5 +49,33 @@ namespace ProjectPRN231.Controllers
 
         }
 
+        [HttpPost]
+        [Authorize(Roles = "2")]
+        public async Task<ActionResult<IEnumerable<Product>>> CreateOrder([FromBody] CreateOrderDto order)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            int userId = Int32.Parse(identity.FindFirst("AccountId").Value);
+            try
+            {
+                Account account = await _context.Accounts.Where(a => a.AccountId == userId).FirstOrDefaultAsync();
+                if (account == null)
+                {
+                    return BadRequest();
+                }
+                else
+                {
+                    return Ok();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
+
+
+        }
+
     }
 }

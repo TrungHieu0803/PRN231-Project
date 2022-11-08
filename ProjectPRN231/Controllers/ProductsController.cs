@@ -22,6 +22,24 @@ namespace ProjectPRN231.Controllers
         }
 
         [HttpGet]
+        [Route("{id}")]
+        public async Task<ActionResult<Product>> GetBest([FromRoute]int id)
+        {
+            try
+            {
+                var product = await _context.Products.Where(x => x.ProductId == id).Include(x => x.Category).FirstOrDefaultAsync();
+                
+                return Ok(product);
+               
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+
+        }
+
+        [HttpGet]
         [Authorize(Roles = "1")]
         public ActionResult<IEnumerable<Product>> Get([FromQuery] int? categoryId, [FromQuery] string? searchString)
         {
@@ -55,6 +73,7 @@ namespace ProjectPRN231.Controllers
         {
             try
             {
+                var cate = _context.Categories.ToList();
                 var product = await (from p in _context.Products
                                join o in _context.OrderDetails on p.ProductId equals o.ProductId
                                group p by p.ProductId into o

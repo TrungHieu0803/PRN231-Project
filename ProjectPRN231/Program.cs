@@ -39,8 +39,12 @@ builder.Services.AddSwaggerGen(option =>
         }
     });
 });
-string myPolicy = "my_policy";
+builder.Services.AddControllers()
+    .AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+string myPolicy = "my_policy";
 
 builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
 {
